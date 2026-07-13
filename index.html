@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PHPTRAVELS — Contents</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@700;900&family=JetBrains+Mono:wght@400;500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html,body{ height:100%; }
+  body{
+    background:#EFEEEA; font-family:'Inter',sans-serif;
+    display:flex; align-items:center; justify-content:center;
+    min-height:100vh; padding:16px;
+  }
+
+  /* outer wrapper reserves the scaled-down footprint so page layout stays correct */
+  .wrap{ position:relative; }
+
+  /* fixed-design canvas — always 1440x810 internally, only ever scaled, never reflowed */
+  .canvas{
+    width:1440px; height:810px; background:#F7F6F3;
+    position:relative; transform-origin:top left;
+    padding:56px 64px; display:flex; flex-direction:column;
+  }
+
+  .topbar{ display:flex; justify-content:space-between; align-items:flex-start; }
+  .idx{
+    font-family:'JetBrains Mono',monospace; font-size:11px; color:#161616;
+    line-height:1.6; letter-spacing:0.01em;
+  }
+  .mark{
+    width:34px; height:34px; border:1.4px solid #111; border-radius:50%;
+    display:flex; align-items:center; justify-content:center;
+    font-family:'JetBrains Mono',monospace; font-size:14px; color:#111; letter-spacing:-1px;
+  }
+
+  .list{
+    margin-top:48px; display:grid; grid-template-columns:repeat(3,1fr);
+    column-gap:64px; row-gap:34px;
+  }
+  .item{ display:flex; gap:14px; align-items:baseline; }
+  .item .no{
+    font-family:'JetBrains Mono',monospace; font-weight:500; color:#161616;
+    font-size:15px; opacity:0.72; flex-shrink:0; width:34px;
+  }
+  .item .name{
+    font-family:'Inter',sans-serif; font-weight:600; color:#111; font-size:15.5px;
+    letter-spacing:0.01em;
+  }
+
+  .divider{ height:1px; background:#111; opacity:0.5; margin-top:40px; }
+
+  .headline{
+    margin-top:auto; padding-top:36px; display:flex; align-items:flex-end;
+    justify-content:space-between; gap:16px;
+  }
+  .headline h1{
+    font-family:'Archivo',sans-serif; font-weight:900; font-size:100px; line-height:0.86;
+    color:#0C0C0C; letter-spacing:-0.01em; transform:scaleX(0.92); transform-origin:left bottom;
+  }
+  .footer{
+    font-family:'JetBrains Mono',monospace; font-size:10.5px; color:#161616;
+    text-align:right; line-height:1.5; white-space:nowrap; padding-bottom:8px;
+  }
+</style>
+</head>
+<body>
+
+<div class="wrap" id="wrap">
+  <div class="canvas">
+    <div class="topbar">
+      <div class="idx">INDEX_REF: PHPT#0001<br>SYS_MODE: ACTIVE</div>
+      <div class="mark">()</div>
+    </div>
+
+    <div class="list">
+      <div class="item"><span class="no">1.0</span><span class="name">COMPANY OVERVIEW</span></div>
+      <div class="item"><span class="no">6.0</span><span class="name">BOOKING FLOW</span></div>
+      <div class="item"><span class="no">10.0</span><span class="name">MODULES</span></div>
+
+      <div class="item"><span class="no">2.0</span><span class="name">CLIENT PORTFOLIO</span></div>
+      <div class="item"><span class="no">7.0</span><span class="name">PRICING</span></div>
+      <div class="item"><span class="no">11.0</span><span class="name">DEMO REQUEST</span></div>
+
+      <div class="item"><span class="no">3.0</span><span class="name">PRODUCT FEATURES</span></div>
+      <div class="item"><span class="no">8.0</span><span class="name">TECHNOLOGY STACK</span></div>
+      <div class="item"><span class="no">12.0</span><span class="name">COMMERCIAL CONTROLS</span></div>
+
+      <div class="item"><span class="no">4.0</span><span class="name">MOBILE APP</span></div>
+      <div class="item"><span class="no">9.0</span><span class="name">INTEGRATED SUPPLIERS</span></div>
+      <div class="item"><span class="no">13.0</span><span class="name">SUPPORT &amp; DOCS</span></div>
+
+      <div class="item"><span class="no">5.0</span><span class="name">ADMIN PANEL</span></div>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="headline">
+      <h1>CONTENTS</h1>
+      <div class="footer">PITCH DOCUMENT<br>PHPTRAVELS &copy;2026</div>
+    </div>
+  </div>
+</div>
+
+<script>
+  function fit(){
+    var wrap = document.getElementById('wrap');
+    var canvas = wrap.querySelector('.canvas');
+    var maxW = window.innerWidth - 32;
+    var maxH = window.innerHeight - 32;
+    var scale = Math.min(maxW/1440, maxH/810, 1);
+    canvas.style.transform = 'scale(' + scale + ')';
+    wrap.style.width = (1440*scale) + 'px';
+    wrap.style.height = (810*scale) + 'px';
+  }
+  window.addEventListener('resize', fit);
+  window.addEventListener('load', fit);
+  fit();
+</script>
+
+</body>
+</html>
