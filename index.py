@@ -13,16 +13,16 @@ app = FastAPI(
 )
 
 templates = Jinja2Templates(directory="templates")
- 
+
 SECRET = os.getenv("INTERNAL_PAGE_SECRET")
 
 
 @app.get("/")
 async def home(request: Request):
     return templates.TemplateResponse(
-        request,
-        "index.html",
-        {
+        request=request,
+        name="index.html",
+        context={
             "secret": SECRET
         }
     )
@@ -33,7 +33,7 @@ async def internal_page(key: str):
     if key != SECRET:
         raise HTTPException(status_code=404, detail="Not Found")
 
-    return FileResponse("web.html")
+    return FileResponse("templates/web.html")
 
 
 @app.get("/web.html")
