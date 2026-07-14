@@ -1,5 +1,7 @@
+from fastapi import FastAPI, HTTPException
 from fastapi.responses import FileResponse
-from fastapi import HTTPException
+
+app = FastAPI()
 
 @app.get("/")
 async def home():
