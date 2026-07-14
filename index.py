@@ -5,13 +5,19 @@ import os
 
 load_dotenv()
 
-app = FastAPI()
+app = FastAPI(
+    docs_url=None,
+    redoc_url=None,
+    openapi_url=None
+)
 
 SECRET = os.getenv("INTERNAL_PAGE_SECRET")
+
 
 @app.get("/")
 async def home():
     return FileResponse("index.html")
+
 
 @app.get("/__internal__/page")
 async def internal_page(key: str):
@@ -20,6 +26,7 @@ async def internal_page(key: str):
 
     return FileResponse("web.html")
 
-@app.get("/__internal__/page")
-async def internal_page():
-    return FileResponse("web.html")
+
+@app.get("/web.html")
+async def block_web():
+    raise HTTPException(status_code=404, detail="Not Found")
