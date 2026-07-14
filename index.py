@@ -1,5 +1,6 @@
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI, HTTPException, Request
 from fastapi.responses import FileResponse
+from fastapi.templating import Jinja2Templates
 from dotenv import load_dotenv
 import os
 
@@ -11,12 +12,20 @@ app = FastAPI(
     openapi_url=None
 )
 
+templates = Jinja2Templates(directory=".")
+
 SECRET = os.getenv("INTERNAL_PAGE_SECRET")
 
 
 @app.get("/")
-async def home():
-    return FileResponse("index.html")
+async def home(request: Request):
+    return templates.TemplateResponse(
+        request,
+        "index.html",
+        {
+            "secret": SECRET
+        }
+    )
 
 
 @app.get("/__internal__/page")
