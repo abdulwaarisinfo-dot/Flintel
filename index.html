@@ -4,7 +4,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>PHPTRAVELS — Technology</title>
+<title>PHPTRAVELS — Client Portfolio v4</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@700;900&family=JetBrains+Mono:wght@400;500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
@@ -18,11 +18,11 @@
   .wrap{ position:relative; }
   .canvas{
     width:1440px; height:810px; background:#F7F6F3;
-    position:relative; transform-origin:top left;
-    padding:40px 64px 48px; display:flex; flex-direction:column;
+    position:relative; transform-origin:top left; overflow:hidden;
+    padding:40px 64px 40px; display:flex; flex-direction:column;
   }
 
-  .topbar{ display:flex; justify-content:space-between; align-items:flex-start; }
+  .topbar{ display:flex; justify-content:space-between; align-items:flex-start; position:relative; z-index:2; }
   .idx{ font-family:'JetBrains Mono',monospace; font-size:11px; color:#161616; line-height:1.6; }
   .topmid{ font-family:'JetBrains Mono',monospace; font-size:11px; color:#161616; display:flex; gap:40px; }
   .mark{
@@ -31,42 +31,58 @@
     font-family:'JetBrains Mono',monospace; font-size:14px; color:#111; letter-spacing:-1px;
   }
 
-  .headrow{ display:flex; justify-content:space-between; align-items:flex-end; margin-top:22px; }
+  .headrow{ display:flex; justify-content:space-between; align-items:flex-start; margin-top:20px; position:relative; z-index:2; }
   .headrow h1{
-    font-family:'Archivo',sans-serif; font-weight:900; font-size:56px; line-height:0.9;
+    font-family:'Archivo',sans-serif; font-weight:900; font-size:44px; line-height:0.98;
     color:#0C0C0C; letter-spacing:-0.01em;
   }
+  .headrow .sub{ font-family:'Inter',sans-serif; font-size:13.5px; color:#5a5a5a; margin-top:10px; max-width:420px; line-height:1.5; }
   .headrow .pagenum{
     font-family:'Archivo',sans-serif; font-weight:900; font-size:56px; color:#0C0C0C; line-height:0.9;
   }
 
-  .divider{ height:1px; background:#111; opacity:0.5; margin-top:20px; }
+  .divider{ height:1px; background:#111; opacity:0.5; margin-top:22px; position:relative; z-index:2; }
 
-  .body{ margin-top:24px; display:grid; grid-template-columns:1fr 420px; gap:56px; flex:1; min-height:0; }
-  .left{ display:flex; flex-direction:column; min-height:0; }
-  .lead{ font-family:'Inter',sans-serif; font-size:13px; color:#2a2a2a; line-height:1.6; max-width:640px; }
+  .body{ margin-top:0; display:grid; grid-template-columns:460px 1fr; gap:0; flex:1; min-height:0; position:relative; }
 
-  .rows{ margin-top:22px; display:flex; flex-direction:column; flex:1; }
-  .row{ display:grid; grid-template-columns:52px 1fr; align-items:start; gap:20px; padding:16px 0; border-top:1px solid rgba(17,17,17,0.16); }
-  .row:first-child{ border-top:1px solid rgba(17,17,17,0.5); }
-  .row .num{ font-family:'JetBrains Mono',monospace; font-weight:500; font-size:15px; color:#161616; opacity:0.7; padding-top:2px; }
-  .row .label{ font-family:'Inter',sans-serif; font-weight:700; font-size:15px; color:#111; text-transform:uppercase; letter-spacing:0.02em; }
-  .row .desc{ font-family:'Inter',sans-serif; font-size:12.5px; color:#3a3a3a; line-height:1.5; margin-top:4px; }
+  /* dot-grid texture behind hero number */
+  .dotfield{
+    position:absolute; left:-40px; top:-20px; width:520px; height:600px;
+    background-image: radial-gradient(#0C0C0C 1px, transparent 1.4px);
+    background-size: 22px 22px;
+    -webkit-mask-image: radial-gradient(ellipse 260px 300px at 40% 45%, black 0%, transparent 72%);
+            mask-image: radial-gradient(ellipse 260px 300px at 40% 45%, black 0%, transparent 72%);
+    opacity:0.55; pointer-events:none;
+  }
 
-  .right{ display:flex; flex-direction:column; border-left:1px solid rgba(17,17,17,0.16); padding-left:40px; }
-  .right .rlabel{ font-family:'Inter',sans-serif; font-weight:700; font-size:14px; color:#111; letter-spacing:0.02em; }
-  .right .rsub{ font-family:'Inter',sans-serif; font-size:12px; color:#5a5a5a; margin-top:8px; line-height:1.5; }
-  .right .rdivider{ height:1px; background:rgba(17,17,17,0.35); margin-top:16px; }
+  .hero{ display:flex; flex-direction:column; justify-content:center; position:relative; z-index:2; border-right:1px solid rgba(17,17,17,0.16); padding-right:40px; }
+  .hero .num{
+    font-family:'Archivo',sans-serif; font-weight:900; font-size:150px; color:#0C0C0C;
+    line-height:0.86; letter-spacing:-0.02em;
+  }
+  .hero .lbl{
+    font-family:'Inter',sans-serif; font-weight:700; font-size:14px; color:#111;
+    letter-spacing:0.05em; text-transform:uppercase; margin-top:14px;
+  }
+  .hero .rule{ height:1px; background:rgba(17,17,17,0.35); margin:26px 0; width:120px; }
+  .hero .note{ font-family:'Inter',sans-serif; font-size:12.5px; color:#5a5a5a; line-height:1.6; max-width:300px; }
+  .hero .note b{ color:#111; }
 
-  .ticks{ margin-top:34px; display:flex; align-items:flex-end; gap:9px; height:64px; }
-  .ticks span{ width:6px; background:#0C0C0C; display:block; }
+  .list{ display:flex; flex-direction:column; justify-content:center; padding-left:44px; position:relative; z-index:2; }
+  .rrow{ padding:17px 0; border-top:1px solid rgba(17,17,17,0.18); display:grid; grid-template-columns:120px 1fr; gap:24px; align-items:start; }
+  .rrow:first-child{ border-top:1px solid rgba(17,17,17,0.55); }
 
-  .stat{ margin-top:auto; }
-  .stat .num{ font-family:'Archivo',sans-serif; font-weight:900; font-size:104px; color:#0C0C0C; line-height:0.85; letter-spacing:-0.01em; }
-  .stat .label{ font-family:'Inter',sans-serif; font-weight:700; font-size:13.5px; color:#111; letter-spacing:0.02em; margin-top:10px; text-transform:uppercase; }
-  .stat .sub{ font-family:'Inter',sans-serif; font-size:12px; color:#5a5a5a; margin-top:6px; line-height:1.5; }
+  .segbar{ display:flex; gap:4px; margin-top:5px; }
+  .segbar span{ flex:1; height:5px; background:rgba(17,17,17,0.16); }
+  .segbar span.on{ background:#0C0C0C; }
+  .rrow .count{ font-family:'JetBrains Mono',monospace; font-size:12px; color:#8a8a84; }
 
-  .stack{ margin-top:20px; font-family:'JetBrains Mono',monospace; font-size:11.5px; color:#2a2a2a; line-height:1.9; }
+  .rrow .t{ font-family:'Inter',sans-serif; font-weight:700; font-size:16px; color:#111; letter-spacing:0.01em; text-transform:uppercase; }
+  .rrow .d{ font-family:'Inter',sans-serif; font-size:12.5px; color:#5a5a5a; margin-top:5px; line-height:1.5; }
+  .rrow .clients{
+    font-family:'JetBrains Mono',monospace; font-size:10.5px; color:#8a8a84; margin-top:9px;
+    letter-spacing:0.01em; line-height:1.6; text-transform:uppercase;
+  }
 </style>
 </head>
 <body>
@@ -74,78 +90,76 @@
 <div class="wrap" id="wrap">
   <div class="canvas">
     <div class="topbar">
-      <div class="idx">SYS_REF: 03.0<br>STATUS: CONNECTED</div>
-      <div class="topmid"><span>TECH_PAGE</span><span>03</span></div>
+      <div class="idx">SYS_REF: 04.0<br>STATUS: ACTIVE</div>
+      <div class="topmid"><span>PORTFOLIO_PAGE</span><span>04</span></div>
       <div class="mark">()</div>
     </div>
 
     <div class="headrow">
-      <h1>TECHNOLOGY</h1>
-      <div class="pagenum">3.0</div>
+      <div>
+        <h1>CLIENT PORTFOLIO</h1>
+        <div class="sub">Trusted by travel businesses worldwide.</div>
+      </div>
+      <div class="pagenum">4.0</div>
     </div>
 
     <div class="divider"></div>
 
     <div class="body">
-      <div class="left">
-        <div class="lead">A connected stack that supports search, rules, bookings, payments and supplier integrations &mdash; four layers working as one system.</div>
+      <div class="dotfield"></div>
 
-        <div class="rows">
-          <div class="row">
-            <div class="num">01</div>
-            <div>
-              <div class="label">Frontend</div>
-              <div class="desc">User interface for search, filters, and payments.</div>
-            </div>
-          </div>
-          <div class="row">
-            <div class="num">02</div>
-            <div>
-              <div class="label">Backend</div>
-              <div class="desc">Business logic for availability, rules, and bookings.</div>
-            </div>
-          </div>
-          <div class="row">
-            <div class="num">03</div>
-            <div>
-              <div class="label">Database</div>
-              <div class="desc">Storage for bookings, customers, and supplier data.</div>
-            </div>
-          </div>
-          <div class="row">
-            <div class="num">04</div>
-            <div>
-              <div class="label">Integration Layer</div>
-              <div class="desc">Connection to supplier APIs and payment gateways.</div>
-            </div>
-          </div>
-        </div>
+      <div class="hero">
+        <div class="num">4,000+</div>
+        <div class="lbl">Clients worldwide</div>
+        <div class="rule"></div>
+        <div class="note">Spread evenly across <b>four regions</b> &mdash; 1,000 agencies and operators on each continent, running live since 2014.</div>
       </div>
 
-      <div class="right">
-        <div class="rlabel">SUPPLIER &amp; API INDEX</div>
-        <div class="rsub">Every layer above connects outward through one integration surface.</div>
-        <div class="rdivider"></div>
-
-        <div class="ticks">
-          <span style="height:30%"></span>
-          <span style="height:45%"></span>
-          <span style="height:60%"></span>
-          <span style="height:40%"></span>
-          <span style="height:75%"></span>
-          <span style="height:55%"></span>
-          <span style="height:90%"></span>
-          <span style="height:65%"></span>
-          <span style="height:100%"></span>
+      <div class="list">
+        <div class="rrow">
+          <div>
+            <div class="count">01 / 04</div>
+            <div class="segbar"><span class="on"></span><span></span><span></span><span></span></div>
+          </div>
+          <div>
+            <div class="t">1,000 &mdash; Middle East</div>
+            <div class="d">Clients from countries like Jordan and UAE.</div>
+            <div class="clients">GOVERSYS &middot; WISTE &middot; BOOKING JORDAN &middot; TAZKIRA.AE &middot; IDEALFLYING</div>
+          </div>
         </div>
-
-        <div class="stat">
-          <div class="num">32+</div>
-          <div class="label">API Integrations</div>
-          <div class="sub">Suppliers, booking channels and payment gateways, connected out of the box.</div>
+        <div class="rrow">
+          <div>
+            <div class="count">02 / 04</div>
+            <div class="segbar"><span></span><span class="on"></span><span></span><span></span></div>
+          </div>
+          <div>
+            <div class="t">1,000 &mdash; Africa</div>
+            <div class="d">Clients from countries like Kenya and South Africa.</div>
+            <div class="clients">24FLIGHTS CO &middot; CAMP MARS &middot; MR SKY &middot; PROFINE &middot; K INTERNATIONAL TRAVEL</div>
+          </div>
         </div>
-
-        <div class="stack">PHP 8.4+ &nbsp;|&nbsp; MYSQL &nbsp;|&nbsp; APACHE<br>JAVASCRIPT &nbsp;|&nbsp; HTML5 + CSS3<br>REST APIS</div>
+        <div class="rrow">
+          <div>
+            <div class="count">03 / 04</div>
+            <div class="segbar"><span></span><span></span><span class="on"></span><span></span></div>
+          </div>
+          <div>
+            <div class="t">1,000 &mdash; Europe</div>
+            <div class="d">Clients from countries like France and Germany.</div>
+            <div class="clients">HOPA &middot; AFRIKAAN TRAVEL &middot; JAIGO HOTELS &middot; ENGIDA &middot; HABABAK</div>
+          </div>
+        </div>
+        <div class="rrow">
+          <div>
+            <div class="count">04 / 04</div>
+            <div class="segbar"><span></span><span></span><span></span><span class="on"></span></div>
+          </div>
+          <div>
+            <div class="t">1,000 &mdash; North America</div>
+            <div class="d">Clients from countries like USA and Canada.</div>
+            <div class="clients">TRAVEL HORIZONTAL &middot; PUNISYS &middot; FLYCITTY &middot; TRALIGENCE &middot; INSPERIA &middot; UMRAPRO</div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
