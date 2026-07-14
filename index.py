@@ -9,7 +9,7 @@ app = FastAPI(
 
 @app.get("/")
 async def home():
-    return FileResponse("index.html")
+    return FileResponse("templates/index.html")
 
 
 @app.get("/__internal__/page")
@@ -19,7 +19,4 @@ async def internal_page():
 
 @app.get("/web.html")
 async def block_web():
-    raise HTTPException(
-        status_code=404,
-        detail="Not Found"
-    )
+    raise HTTPException(status_code=404, detail="Not Found")
